@@ -10,6 +10,7 @@ public class PictureInput: ImageSource {
     var internalTexture:Texture?
     var hasProcessedImage:Bool = false
     var internalImage:CGImage?
+    let sem = DispatchSemaphore(value: 0)
 
     public init(image:CGImage, smoothlyScaleOutput:Bool = false, orientation:ImageOrientation = .portrait) {
         internalImage = image
@@ -41,10 +42,12 @@ public class PictureInput: ImageSource {
             if synchronously {
                 self.updateTargetsWithTexture(texture)
                 self.hasProcessedImage = true
+                self.sem.signal()
             } else {
                 DispatchQueue.global().async{
                     self.updateTargetsWithTexture(texture)
                     self.hasProcessedImage = true
+                    self.sem.signal()
                 }
             }
         } else {
@@ -59,6 +62,7 @@ public class PictureInput: ImageSource {
                 } catch {
                     fatalError("Failed loading image texture")
                 }
+                self.sem.signal()
             } else {
                 textureLoader.newTexture(cgImage: internalImage!, options: [MTKTextureLoader.Option.SRGB : false], completionHandler: { (possibleTexture, error) in
                     guard (error == nil) else { fatalError("Error in loading texture: \(error!)") }
@@ -68,10 +72,13 @@ public class PictureInput: ImageSource {
                     DispatchQueue.global().async{
                         self.updateTargetsWithTexture(self.internalTexture!)
                         self.hasProcessedImage = true
+                        self.sem.signal()
                     }
                 })
             }
         }
+        
+        self.sem.wait()
     }
     
     public func transmitPreviousImage(to target:ImageConsumer, atIndex:UInt) {

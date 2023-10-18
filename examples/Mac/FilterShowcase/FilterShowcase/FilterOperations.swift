@@ -770,16 +770,16 @@ let filterOperations: Array<FilterOperationInterface> = [
         sliderUpdateCallback: nil,
         filterOperationType:.singleInput
     ),
-    FilterOperation(
-        filter:{Vignette()},
-        listName:"Vignette",
-        titleName:"Vignette",
-        sliderConfiguration:.enabled(minimumValue:0.5, maximumValue:0.9, initialValue:0.75),
-        sliderUpdateCallback: {(filter, sliderValue) in
-            filter.end = sliderValue
-        },
-        filterOperationType:.singleInput
-    ),
+//    FilterOperation(
+//        filter:{Vignette()},
+//        listName:"Vignette",
+//        titleName:"Vignette",
+//        sliderConfiguration:.enabled(minimumValue:0.5, maximumValue:0.9, initialValue:0.75),
+//        sliderUpdateCallback: {(filter, sliderValue) in
+//            filter.end = sliderValue
+//        },
+//        filterOperationType:.singleInput
+//    ),
     FilterOperation(
         filter:{GaussianBlur()},
         listName:"Gaussian blur",
@@ -828,16 +828,16 @@ let filterOperations: Array<FilterOperationInterface> = [
 //        },
 //        filterOperationType:.singleInput
 //    ),
-    FilterOperation(
-        filter:{ZoomBlur()},
-        listName:"Zoom blur",
-        titleName:"Zoom Blur",
-        sliderConfiguration:.enabled(minimumValue:0.0, maximumValue:2.5, initialValue:1.0),
-        sliderUpdateCallback: {(filter, sliderValue) in
-            filter.blurSize = sliderValue
-        },
-        filterOperationType:.singleInput
-    ),
+//    FilterOperation(
+//        filter:{ZoomBlur()},
+//        listName:"Zoom blur",
+//        titleName:"Zoom Blur",
+//        sliderConfiguration:.enabled(minimumValue:0.0, maximumValue:2.5, initialValue:1.0),
+//        sliderUpdateCallback: {(filter, sliderValue) in
+//            filter.blurSize = sliderValue
+//        },
+//        filterOperationType:.singleInput
+//    ),
     FilterOperation( // TODO: Make this only partially applied to the view
         filter:{iOSBlur()},
         listName:"iOS 7 blur",
@@ -856,75 +856,75 @@ let filterOperations: Array<FilterOperationInterface> = [
         },
         filterOperationType:.singleInput
     ),
-    FilterOperation(
-        filter:{BulgeDistortion()},
-        listName:"Bulge",
-        titleName:"Bulge",
-        sliderConfiguration:.enabled(minimumValue:-1.0, maximumValue:1.0, initialValue:0.5),
-        sliderUpdateCallback: {(filter, sliderValue) in
-            //            filter.scale = sliderValue
-            filter.center = Position(0.5, sliderValue)
-        },
-        filterOperationType:.singleInput
-    ),
-    FilterOperation(
-        filter:{PinchDistortion()},
-        listName:"Pinch",
-        titleName:"Pinch",
-        sliderConfiguration:.enabled(minimumValue:-2.0, maximumValue:2.0, initialValue:0.5),
-        sliderUpdateCallback: {(filter, sliderValue) in
-            filter.scale = sliderValue
-        },
-        filterOperationType:.singleInput
-    ),
-    FilterOperation(
-        filter:{SphereRefraction()},
-        listName:"Sphere refraction",
-        titleName:"Sphere Refraction",
-        sliderConfiguration:.enabled(minimumValue:0.0, maximumValue:1.0, initialValue:0.15),
-        sliderUpdateCallback:{(filter, sliderValue) in
-            filter.radius = sliderValue
-        },
-        filterOperationType:.custom(filterSetupFunction:{(camera, filter, outputView) in
-            let castFilter = filter as! SphereRefraction
-            
-            // Provide a blurred image for a cool-looking background
-            let gaussianBlur = GaussianBlur()
-            gaussianBlur.blurRadiusInPixels = 5.0
-            
-            let blendFilter = AlphaBlend()
-            blendFilter.mix = 1.0
-            
-            camera --> gaussianBlur --> blendFilter --> outputView
-            camera --> castFilter --> blendFilter
-            
-            return blendFilter
-        })
-    ),
-    FilterOperation(
-        filter:{GlassSphereRefraction()},
-        listName:"Glass sphere",
-        titleName:"Glass Sphere",
-        sliderConfiguration:.enabled(minimumValue:0.0, maximumValue:1.0, initialValue:0.15),
-        sliderUpdateCallback:{(filter, sliderValue) in
-            filter.radius = sliderValue
-        },
-        filterOperationType:.custom(filterSetupFunction:{(camera, filter, outputView) in
-            let castFilter = filter as! GlassSphereRefraction
-            
-            // Provide a blurred image for a cool-looking background
-            let gaussianBlur = GaussianBlur()
-            gaussianBlur.blurRadiusInPixels = 5.0
-            
-            let blendFilter = AlphaBlend()
-            blendFilter.mix = 1.0
-            
-            camera --> gaussianBlur --> blendFilter --> outputView
-            camera --> castFilter --> blendFilter
-            
-            return blendFilter
-        })
-    ),
+//    FilterOperation(
+//        filter:{BulgeDistortion()},
+//        listName:"Bulge",
+//        titleName:"Bulge",
+//        sliderConfiguration:.enabled(minimumValue:-1.0, maximumValue:1.0, initialValue:0.5),
+//        sliderUpdateCallback: {(filter, sliderValue) in
+//            //            filter.scale = sliderValue
+//            filter.center = Position(0.5, sliderValue)
+//        },
+//        filterOperationType:.singleInput
+//    ),
+//    FilterOperation(
+//        filter:{PinchDistortion()},
+//        listName:"Pinch",
+//        titleName:"Pinch",
+//        sliderConfiguration:.enabled(minimumValue:-2.0, maximumValue:2.0, initialValue:0.5),
+//        sliderUpdateCallback: {(filter, sliderValue) in
+//            filter.scale = sliderValue
+//        },
+//        filterOperationType:.singleInput
+//    ),
+//    FilterOperation(
+//        filter:{SphereRefraction()},
+//        listName:"Sphere refraction",
+//        titleName:"Sphere Refraction",
+//        sliderConfiguration:.enabled(minimumValue:0.0, maximumValue:1.0, initialValue:0.15),
+//        sliderUpdateCallback:{(filter, sliderValue) in
+//            filter.radius = sliderValue
+//        },
+//        filterOperationType:.custom(filterSetupFunction:{(camera, filter, outputView) in
+//            let castFilter = filter as! SphereRefraction
+//            
+//            // Provide a blurred image for a cool-looking background
+//            let gaussianBlur = GaussianBlur()
+//            gaussianBlur.blurRadiusInPixels = 5.0
+//            
+//            let blendFilter = AlphaBlend()
+//            blendFilter.mix = 1.0
+//            
+//            camera --> gaussianBlur --> blendFilter --> outputView
+//            camera --> castFilter --> blendFilter
+//            
+//            return blendFilter
+//        })
+//    ),
+//    FilterOperation(
+//        filter:{GlassSphereRefraction()},
+//        listName:"Glass sphere",
+//        titleName:"Glass Sphere",
+//        sliderConfiguration:.enabled(minimumValue:0.0, maximumValue:1.0, initialValue:0.15),
+//        sliderUpdateCallback:{(filter, sliderValue) in
+//            filter.radius = sliderValue
+//        },
+//        filterOperationType:.custom(filterSetupFunction:{(camera, filter, outputView) in
+//            let castFilter = filter as! GlassSphereRefraction
+//            
+//            // Provide a blurred image for a cool-looking background
+//            let gaussianBlur = GaussianBlur()
+//            gaussianBlur.blurRadiusInPixels = 5.0
+//            
+//            let blendFilter = AlphaBlend()
+//            blendFilter.mix = 1.0
+//            
+//            camera --> gaussianBlur --> blendFilter --> outputView
+//            camera --> castFilter --> blendFilter
+//            
+//            return blendFilter
+//        })
+//    ),
     FilterOperation (
         filter:{StretchDistortion()},
         listName:"Stretch",
@@ -1165,20 +1165,20 @@ let filterOperations: Array<FilterOperationInterface> = [
         filterOperationType:.blend
     ),
     
-    FilterOperation(
-        filter:{GammaAdjustment()},
-        listName:"Solid color",
-        titleName:"Solid color",
-        sliderConfiguration:.disabled,
-        sliderUpdateCallback: nil,
-        filterOperationType:.custom(filterSetupFunction:{(camera, filter, outputView) in
-            let solidColorGenerator = SolidColorGenerator(size:Size(width: 400, height: 400))
-            solidColorGenerator --> outputView
-            solidColorGenerator.renderColor(Color.red)
-//            solidColorGenerator --> (filter as! GammaAdjustment) --> outputView
-            return nil
-        })
-    ),
+//    FilterOperation(
+//        filter:{GammaAdjustment()},
+//        listName:"Solid color",
+//        titleName:"Solid color",
+//        sliderConfiguration:.disabled,
+//        sliderUpdateCallback: nil,
+//        filterOperationType:.custom(filterSetupFunction:{(camera, filter, outputView) in
+//            let solidColorGenerator = SolidColorGenerator(size:Size(width: 400, height: 400))
+//            solidColorGenerator --> outputView
+//            solidColorGenerator.renderColor(Color.red)
+////            solidColorGenerator --> (filter as! GammaAdjustment) --> outputView
+//            return nil
+//        })
+//    ),
 
     // TODO: Poisson blend
 ]
